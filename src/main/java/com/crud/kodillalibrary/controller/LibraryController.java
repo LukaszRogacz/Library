@@ -29,8 +29,8 @@ public class LibraryController {
     TitleMapper titleMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "getBook")
-    public BookDto getBook(@RequestParam Long Id) {
-        return bookMapper.mapToBookDto(service.getBook(Id));
+    public BookDto getBook(@RequestParam Long id) {
+        return bookMapper.mapToBookDto(service.getBook(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getAllBooks")
@@ -49,8 +49,8 @@ public class LibraryController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getReader")
-    public ReaderDto getReader(@RequestParam Long Id) {
-        return readerMapper.mapToReaderDto(service.getReader(Id));
+    public ReaderDto getReader(@RequestParam Long id) {
+        return readerMapper.mapToReaderDto(service.getReader(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getAllReaders")
@@ -64,8 +64,8 @@ public class LibraryController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getTitle")
-    public TitleDto getTitle(@RequestParam Long Id) {
-        return titleMapper.mapToTitleDto(service.getTitle(Id));
+    public TitleDto getTitle(@RequestParam Long id) {
+        return titleMapper.mapToTitleDto(service.getTitle(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getAllTitles")
@@ -79,8 +79,8 @@ public class LibraryController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getRental")
-    public RentalDto getRental(@RequestParam Long Id) {
-        return rentalMapper.mapToRentalDto(service.getRental(Id));
+    public RentalDto getRental(@RequestParam Long id) {
+        return rentalMapper.mapToRentalDto(service.getRental(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getAllRentals")
@@ -91,7 +91,7 @@ public class LibraryController {
     @RequestMapping(method = RequestMethod.POST, value = "bookRental", consumes = APPLICATION_JSON_VALUE)
     public void bookRental(@RequestBody RentalDto rentalDto) {
         System.out.println("in book Rental");
-        if (rentalDto.getBook().getStatus().equals("available")) {
+        if (("available").equals(rentalDto.getBook().getStatus())) {
             service.createRental(rentalMapper.mapToRental(rentalDto));
             service.updateBookStatus(rentalMapper.mapToRental(rentalDto).getBook(), "rented");
         }
@@ -99,7 +99,7 @@ public class LibraryController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "bookReturn", consumes = APPLICATION_JSON_VALUE)
     public RentalDto bookReturn(@RequestBody RentalDto rentalDto) {
-        if (rentalDto.getBook().getStatus().equals("rented")) {
+        if (("rented").equals(rentalDto.getBook().getStatus())) {
             service.updateBookStatus(rentalMapper.mapToRental(rentalDto).getBook(), "available");
         }
         return rentalMapper.mapToRentalDto(service.updateRentalByReturn(rentalMapper.mapToRental(rentalDto)));

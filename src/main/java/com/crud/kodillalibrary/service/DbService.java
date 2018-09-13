@@ -26,8 +26,8 @@ public class DbService {
     @Autowired
     TitleRepository titleRepository;
 
-    public Book getBook(Long Id) {
-        return bookRepository.findOne(Id);
+    public Book getBook(Long id) {
+        return bookRepository.findOne(id);
     }
 
     public List<Book> getAllBooks() {
@@ -59,8 +59,8 @@ public class DbService {
     }
 
 
-    public Reader getReader(Long Id) {
-        return readerRepository.findOne(Id);
+    public Reader getReader(Long id) {
+        return readerRepository.findOne(id);
     }
 
     public List<Reader> getAllReaders() {
@@ -71,8 +71,8 @@ public class DbService {
         return readerRepository.save(reader);
     }
 
-    public Rental getRental(Long Id) {
-        return rentalRepository.findOne(Id);
+    public Rental getRental(Long id) {
+        return rentalRepository.findOne(id);
     }
 
     public List<Rental> getAllRentals() {
@@ -94,8 +94,8 @@ public class DbService {
         ));
     }
 
-    public Title getTitle(Long Id) {
-        return titleRepository.findOne(Id);
+    public Title getTitle(Long id) {
+        return titleRepository.findOne(id);
     }
 
     public List<Title> getAllTitles() {
@@ -109,7 +109,7 @@ public class DbService {
     public long checkQuantityBookAvailable(String titleName) {
         System.out.println(titleName);
         return bookRepository.findAll().stream()
-                .filter(n -> n.getStatus().equals("available"))
+                .filter(n -> ("available").equals(n.getStatus()))
                 .filter(n -> titleName.equals(n.getTitle().getTitle()))
                 .count();
 
